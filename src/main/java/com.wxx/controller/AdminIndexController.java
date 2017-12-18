@@ -1,6 +1,5 @@
 package com.wxx.controller;
 
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import com.wxx.model.PublicMsg;
 import com.wxx.services.AdminIndexService;
 import org.springframework.stereotype.Controller;
@@ -13,6 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * @author wangxinxin
+ * */
 @Controller
 public class AdminIndexController {
     @Resource

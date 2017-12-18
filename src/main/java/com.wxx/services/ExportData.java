@@ -10,7 +10,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.*;
 import java.util.List;
-
+/**
+ * @author wangxinxin
+ * */
 public class ExportData {
     public String exportHis(HttpServletRequest request, HttpServletResponse response)throws Exception{
         HttpSession session = request.getSession();
