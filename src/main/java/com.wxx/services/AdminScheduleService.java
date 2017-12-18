@@ -11,9 +11,6 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
- * Created by wxx on 2017/11/5.
- */
-/**
  * @author wangxinxin
  * */
 public class AdminScheduleService {
@@ -21,7 +18,8 @@ public class AdminScheduleService {
     private RosterService rosterService;
     @Resource
     private AdminScheduleInfo adminScheduleInfo;
-    public void queryAllSche(Model model, HttpServletRequest request){//加载排课信息
+    public void queryAllSche(Model model, HttpServletRequest request){
+        //加载排课信息
         HttpSession session = request.getSession();
         User user = (User)session.getAttribute("user");
         if (user == null){

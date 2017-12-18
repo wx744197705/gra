@@ -20,6 +20,9 @@ import java.util.Map;
 public class AdminCallService {
     @Resource
     private AdminCallInfo adminCallInfo;
+    /**
+     * @return map值依次为 点名信息、教师、班级、学院、课程
+     * */
     public Map<String,List> queryAllCall(HttpServletRequest request){
         if (!BooleanSessionExist.booleanSession(request)){
             return null;
@@ -40,6 +43,9 @@ public class AdminCallService {
         map.put("allcourse",allCourse);
         return map;
     }
+    /**
+     * @param teacher:教师id classes:班级名称 kind:学院名称  begindate 开始时间 enddate 结束时间
+     * */
     public void filters(String teacher, String classes, String kind, String begindate, String enddate,
                          Model model, HttpServletRequest request){
         if (BooleanSessionExist.booleanSession(request)){

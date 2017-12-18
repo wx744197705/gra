@@ -22,6 +22,9 @@ import java.util.Map;
 public class AdminLeaveService {
     @Resource
     private AdminLeaveInfo adminLeaveInfo;
+    /**
+     * @return 返回学生请假信息和请假统计情况
+     * */
     public Map<String,List> leaveReq(HttpServletRequest request){
         if(!BooleanSessionExist.booleanSession(request)){
             return null;
