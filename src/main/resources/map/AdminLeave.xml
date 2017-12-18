@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wxx.dao.AdminLeaveInfo">
+    <resultMap id="leaveMap" type="Leave">
+        <id column="id" property="id" />
+        <result column="simplemsg" property="simplemsg" />
+        <result column="reqtypes" property="reqtypes" />
+        <result column="begindate" property="begindate" />
+        <result column="enddate" property="enddate" />
+        <result column="teacher" property="teacher" />
+        <result column="student" property="student" />
+        <result column="leavedate" property="leavedate" />
+        <result column="ischeck" property="ischeck" />
+        <result column="username" property="username" />
+    </resultMap>
+    <resultMap id="queryCountCall" type="CallCount">
+        <result property="count" column="counts" />
+        <result property="month" column="month" />
+    </resultMap>
+    <select id="queryAllLeave" resultMap="leaveMap">
+        select * from tb_leavereq;
+    </select>
+
+    <delete id="removeLeave" parameterType="String">
+        delete from tb_leavereq where id = #{id}
+    </delete>
+    <select id="queryCountCall" resultMap="queryCountCall">
+        SELECT count(1) counts,DATE_FORMAT(begindate,'%Y-%m') month
+        FROM tb_leavereq where ischeck = '已批准' AND leavedate > DATE_FORMAT(NOW(), '%Y')
+        GROUP BY DATE_FORMAT(begindate,'%Y-%m')
+    </select><!--统计每月请假人数-->
+</mapper>

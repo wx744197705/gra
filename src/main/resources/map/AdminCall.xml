@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wxx.dao.AdminCallInfo">
+    <resultMap id="queryAllCall" type="WorkCheck">
+        <id property="id" column="id" />
+        <result column="stuid" property="stuid" />
+        <result column="callno" property="callno" />
+        <result column="tchid" property="tchid" />
+        <result column="calldate" property="calldate" />
+        <association property="roster" resultMap="ros" javaType="Roster" />
+    </resultMap>
+    <resultMap id="ros" type="Roster">
+        <id column="stuid" property="stuid" />
+        <result column="stuname" property="stuname" />
+        <result column="stuclass" property="stuclass" />
+        <result column="stukind" property="stukind" />
+    </resultMap>
+    <resultMap id="user" type="User">
+        <result property="username" column="username" />
+        <result property="name" column="name" />
+    </resultMap>
+    <resultMap id="queryAllCourse" type="Course">
+        <result property="courseid" column="courseid" />
+        <result property="coursename" column="coursename" />
+    </resultMap>
+    <resultMap id="roster" type="Roster">
+        <result column="stuclass" property="stuclass" />
+        <result column="stukind" property="stukind" />
+    </resultMap>
+    <select id="queryAllCourse" resultMap="queryAllCourse">
+        SELECT * FROM tb_course
+    </select>
+    <select id="queryAllCall" resultMap="queryAllCall">
+        SELECT * FROM tb_workcheck LEFT JOIN tb_roster ON tb_workcheck.stuid = tb_roster.stuid ORDER BY calldate DESC
+    </select><!--查询所有-->
+    <delete id="removeCall" parameterType="String">
+        DELETE FROM tb_workcheck WHERE id = #{id}
+    </delete>
+    <select id="queryAllTeacher" resultMap="user">
+        SELECT username,name FROM tb_user WHERE status = '1'
+    </select> <!--查询教师-->
+
+    <select id="queryAllClass" resultMap="roster">
+        SELECT DISTINCT stuclass FROM tb_roster
+    </select><!--查询班级-->
+    <select id="queryAllKind" resultMap="roster">
+        SELECT DISTINCT stukind from tb_roster
+    </select><!--查询学院-->
+    <select id="queryPartCall" resultMap="queryAllCall">
+        SELECT * FROM tb_workcheck LEFT JOIN tb_roster ON tb_workcheck.stuid = tb_roster.stuid WHERE 1=1
+            <if test="teacher != ''.toString()">
+                AND tchid = #{teacher}
+            </if>
+            <if test="classes != ''.toString()">
+                AND stuclass = #{classes}
+            </if>
+            <if test="kind != ''.toString()">
+                AND stukind = #{kind}
+            </if>
+            <if test="begindate != ''.toString()">
+                AND calldate &gt;= #{begindate}
+            </if>
+            <if test="enddate != ''.toString()">
+                AND calldate &lt;= #{enddate}
+            </if>
+    </select><!--按条件筛选-->
+
+</mapper>

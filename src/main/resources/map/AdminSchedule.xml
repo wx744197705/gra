@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wxx.dao.AdminScheduleInfo">
+    <resultMap id="queryAllSche" type="Schedules">
+        <result column="scheid" property="scheid"/>
+        <result column="scheclass" property="scheclass"/>
+        <result column="scheweek" property="scheweek"/>
+        <result column="schebegin" property="schebegin"/>
+        <result column="scheend" property="scheend"/>
+        <result column="scheuser" property="scheuser"/>
+        <result column="schedate" property="schedate"/>
+        <association property="user" resultMap="user" />
+        <association property="course" resultMap="course" />
+    </resultMap>
+    <resultMap id="user" type="User">
+        <result property="name" column="name" />
+    </resultMap>
+    <resultMap id="course" type="Course">
+        <result column="coursename" property="coursename"/>
+    </resultMap>
+    <select id="queryAllSche" resultMap="queryAllSche">
+        SELECT scheid,scheclass, CASE scheweek WHEN '0' THEN '星期日'
+        WHEN '1' THEN '星期一' WHEN '2' THEN '星期二'
+        WHEN '3' THEN '星期三' WHEN '4' THEN '星期四'
+        WHEN '5' THEN '星期五' WHEN '6' THEN '星期六'  end scheweek,schebegin,scheend,
+        name,coursename,schedate FROM tb_schedules LEFT JOIN tb_user on username = scheuser
+        LEFT JOIN tb_course ON  tb_schedules.courseid = tb_course.courseid
+    </select><!--查询所有排课信息-->
+    <delete id="removeSche" parameterType="String">
+        DELETE FROM tb_schedules WHERE scheid = #{id}
+    </delete><!--删除单条排课记录-->
+    <insert id="replaySche" parameterType="String">
+        INSERT INTO tb_schebackup (scheid,scheclass,scheweek,schebegin,scheend,
+        scheuser,schedate,courseid) SELECT * FROM tb_schedules;
+        UPDATE schebackup SET outdate = #{date} WHERE outdate IS NULL ;
+        DELETE FROM tb_schedules
+    </insert><!--重新排课-->
+    <insert id="saveSche">
+        INSERT INTO tb_schedules(courseid,scheuser,scheclass,scheweek,schebegin,scheend,schedate) VALUES
+        (#{course},#{teacher},#{classes},#{week},#{begindate},#{enddate},#{schedate})
+    </insert><!--增加单条排课记录-->
+</mapper>

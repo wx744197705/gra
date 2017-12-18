@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wxx.dao.ScheduleInfo">
+    <select id="querySche" resultType="Schedules">
+        SELECT * FROM tb_schedules WHERE scheuser = #{user} AND scheweek = #{weekend}
+        AND schebegin &lt; #{nowtime} AND scheend &gt; #{nowtime}
+
+    </select>
+</mapper>

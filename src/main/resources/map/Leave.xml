@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.wxx.dao.LeaveInfo">
+    <resultMap id="leaveMap" type="Leave">
+        <id column="id" property="id" />
+        <result column="simplemsg" property="simplemsg" />
+        <result column="reqtypes" property="reqtypes" />
+        <result column="begindate" property="begindate" />
+        <result column="enddate" property="enddate" />
+        <result column="teacher" property="teacher" />
+        <result column="student" property="student" />
+        <result column="leavedate" property="leavedate" />
+        <result column="ischeck" property="ischeck" />
+        <result column="username" property="username" />
+        <result column="checkdate" property="checkdate" />
+    </resultMap>
+
+    <insert id="leaveReq" parameterType="Leave">
+        insert into tb_leavereq (simplemsg,reqtypes,begindate,enddate,student,teacher,leavedate,username) values(#{simplemsg},#{reqtypes},#{begindate}
+        ,#{enddate},#{student},#{teacher},#{leavedate},#{username})
+    </insert><!--新增请假条-->
+    <select id="leaveHis" parameterType="String" resultMap="leaveMap">
+        select * from tb_leavereq where username = #{username}
+    </select><!--查询历史请假记录-->
+    <select id="checkReq" parameterType="String" resultMap="leaveMap">
+        select * from tb_leavereq where teacher = #{name}
+    </select><!--教师加载学生请假记录-->
+    <update id="updateState">
+        update tb_leavereq set ischeck = '已批准',checkdate = #{checkdate} where id = #{id}
+        <!--<choose>-->
+            <!--<when test="state == '0'.toString()">-->
+                <!--ischeck = '已批准',checkdate = #{checkdate} where id = #{id}-->
+            <!--</when>-->
+            <!--<otherwise>-->
+                <!--ischeck = '未批准',checkdate = null where id = #{id}-->
+            <!--</otherwise>-->
+        <!--</choose>-->
+    </update><!--教师批准学生请假-->
+    <delete id="removeReq" parameterType="String">
+        delete from tb_leavereq where id = #{id}
+    </delete><!--学生取消请假-->
+</mapper>

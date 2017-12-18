@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wxx.dao.CenterInfo">
+    <resultMap id="center" type="Center">
+        <result column="id" property="id" />
+        <result column="sender" property="sender" />
+        <result column="receiver" property="receiver" />
+        <result column="contents" property="contents" />
+        <result column="senddate" property="senddate" />
+        <association property="user" resultMap="user" />
+    </resultMap>
+    <resultMap id="user" type="User">
+        <result column="username" property="username" />
+        <result column="password" property="password" />
+        <result column="name" property="name" />
+        <result column="status" property="status" />
+    </resultMap>
+    <select id="queryAllReceive" resultMap="center" parameterType="String">
+        SELECT * FROM tb_center LEFT JOIN tb_user ON username = sender WHERE receiver = #{username} ORDER BY senddate
+    </select><!--查询接收信息-->
+    <select id="queryAllSend" resultMap="center" parameterType="String">
+        SELECT * FROM tb_center LEFT JOIN tb_user ON username = receiver WHERE sender = #{username} ORDER BY senddate
+    </select><!--查询发送信息-->
+    <select id="queryAllUser" resultMap="user">
+        SELECT username,name,CASE status WHEN '0' THEN '学生'
+        WHEN '1' THEN '教师' WHEN '2' THEN '管理员' END status FROM tb_user
+    </select><!--查询所有用户-->
+    <insert id="saveSendMessage" parameterType="Center">
+        INSERT INTO tb_center(sender,receiver,contents,senddate) VALUES
+        (#{sender},#{receiver},#{contents},#{senddate})
+    </insert><!--插入信息-->
+    <update id="removeMessage">
+        UPDATE tb_center SET
+        <choose>
+            <when test="flag == 'send'">
+                sender = NULL WHERE id = #{id};
+            </when>
+            <otherwise>
+                receiver = NULL WHERE id = #{id};
+            </otherwise>
+        </choose>
+        DELETE FROM tb_center WHERE ISNULL(sender) AND ISNULL(receiver)<!--尽量不用is null，这会让数据库放弃索引-->
+    </update><!--用户删除信息-->
+    <select id="querySingleUser" parameterType="String" resultType="User">
+        SELECT username,password,name,CASE status WHEN '0' THEN '学生'
+        WHEN '1' THEN '教师' WHEN '2' THEN '管理员' END status FROM tb_user
+        WHERE username = #{username}
+    </select><!--管理员查询用户-->
+    <update id="updateUser">
+        UPDATE tb_user SET password = #{pwd} WHERE username = #{username}
+    </update><!--用户修改密码-->
+    <delete id="removeUser" parameterType="String">
+        DELETE FROM tb_user WHERE username = #{username}
+    </delete><!--删除用户-->
+    <update id="updateUserByAdmin" parameterType="User">
+        UPDATE tb_USER SET password = #{password},name = #{name},
+        <choose>
+            <when test="status == '管理员'">
+                status ='2'
+            </when>
+            <when test="status == '教师'">
+                status ='1'
+            </when>
+            <otherwise>
+                status ='0'
+            </otherwise>
+        </choose>
+        WHERE username = #{username}
+    </update><!--更新用户-->
+    <insert id="saveUser" parameterType="User">
+        INSERT INTO tb_user(username,password,name,status) VALUES (#{username},#{password},#{name},#{status})
+    </insert><!--新增用户-->
+    <insert id="saveRoster" parameterType="Roster">
+        INSERT INTO tb_roster(stuid,stuname,stuclass,stukind) VALUES (#{stuid},
+        #{stuname},#{stuclass},#{stukind})
+    </insert><!--如果保存的用户为学生，则将此信息继续保存到学生表-->
+</mapper>

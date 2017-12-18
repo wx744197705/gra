@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wxx.dao.AdminIndexInfo">
+    <resultMap id="publicmsg" type="PublicMsg">
+        <result property="id" column="id" />
+        <result property="types" column="types" />
+        <result property="msg" column="msg" />
+        <result property="modifydate" column="modifydate" />
+        <result property="no" column="no" />
+    </resultMap>
+    <select id="queryPublicMsg" parameterType="String" resultType="PublicMsg">
+        SELECT * FROM tb_publicmsg WHERE id IN (SELECT MAX(id) FROM tb_publicmsg WHERE `no` = #{index})
+    </select><!--查询最新公告或信息-->
+    <insert id="updatePublicMsg" parameterType="PublicMsg">
+        INSERT INTO tb_publicmsg(types,msg,no,modifydate) VALUES (#{types},#{msg},#{no},#{modifydate})
+    </insert><!--插入最新信息-->
+    <select id="queryAllPublicMsg" resultMap="publicmsg">
+        SELECT id,types,msg,modifydate,CASE no WHEN '1' THEN '栏位1'
+        WHEN '2' THEN '栏位2' WHEN '3' THEN '栏位3' WHEN '4' THEN '栏位4' END no FROM tb_publicmsg ORDER BY id DESC
+    </select><!--查询所有信息-->
+</mapper>

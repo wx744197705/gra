@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id="exportData" class="com.wxx.services.ExportData" />
+    <bean id="rosterService" class="com.wxx.services.RosterService" />
+    <bean id="leaveService" class="com.wxx.services.LeaveService" />
+    <bean id="adminCallService" class="com.wxx.services.AdminCallService" />
+    <bean id="adminLeaveService" class="com.wxx.services.AdminLeaveService" />
+    <bean id="adminScheduleService" class="com.wxx.services.AdminScheduleService" />
+    <bean id="adminScheduleInfoImpl" class="com.wxx.services.CenterService" />
+    <bean id="adminUserService" class="com.wxx.services.AdminUserService" />
+    <bean id="adminIndexService" class="com.wxx.services.AdminIndexService" />
+</beans>

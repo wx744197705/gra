@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wxx.dao.RosterInfo">
+    <resultMap id="roster" type="Roster">
+        <id column="stuid" property="stuid" />
+        <result column="stuname" property="stuname" />
+        <result column="stuclass" property="stuclass" />
+        <result column="stukind" property="stukind" />
+        <association property="leaves" javaType="Leave" resultMap="leave" />
+    </resultMap>
+    <resultMap id="leave" type="Leave">
+        <result column="username" property="username" />
+    </resultMap>
+    <resultMap id="queryHistory" type="WorkCheck">
+        <id property="id" column="id" />
+        <result column="stuid" property="stuid" />
+        <result column="callno" property="callno" />
+        <result column="tchid" property="tchid" />
+        <result column="calldate" property="calldate" />
+        <association property="roster" resultMap="ros" javaType="Roster" />
+    </resultMap>
+    <resultMap id="ros" type="Roster">
+        <id column="stuid" property="stuid" />
+        <result column="stuname" property="stuname" />
+        <result column="stuclass" property="stuclass" />
+        <result column="stukind" property="stukind" />
+    </resultMap>
+    <resultMap id="queryclass" type="Schedules">
+        <result column="scheclass" property="scheclass"></result>
+        <association property="roster" javaType="Roster" resultMap="rost" />
+    </resultMap>
+    <resultMap id="rost" type="Roster">
+        <result column="stuclass" property="stuclass"/>
+    </resultMap>
+    <select id="queryRoster" resultMap="roster">
+        CREATE TEMPORARY TABLE temps(select username from tb_leavereq where begindate &lt;= #{studate} and
+        enddate &gt;= #{studate} AND ischeck = '已批准');
+        select * from tb_roster LEFT JOIN temps ON username = stuid where stuclass = #{stuclass};
+        drop table temps
+    </select><!--查询是否有学生请假-->
+    <insert id="saveRoster" parameterType="List">
+        insert into tb_workcheck(stuid,callno,tchid,calldate) VALUES
+        <foreach collection="list" item="list" index="index" separator=",">
+             (#{list.stuid},#{list.callno},#{list.tchid},#{list.calldate})
+        </foreach>
+    </insert><!--保存点名信息-->
+    <select id="queryClass" parameterType="String" resultMap="queryclass">
+        select scheclass from tb_schedules WHERE scheuser = #{scheuser} union select stuclass from tb_roster
+    </select><!--智能查询班级-->
+    <select id="queryHistory" resultMap="queryHistory" parameterType="String"><!-- 查询历史点名记录 -->
+        SELECT * FROM tb_workcheck LEFT JOIN tb_roster ON tb_workcheck.stuid = tb_roster.stuid where tchid = #{tchid} ORDER BY calldate DESC
+    </select><!--查询历史点名-->
+    <delete id="removeHistory">
+        DELETE  FROM tb_workcheck WHERE stuid = #{stuid} AND calldate = #{calldate}
+    </delete><!--移除历史点名-->
+</mapper>
