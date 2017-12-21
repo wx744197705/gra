@@ -24,8 +24,11 @@ public class AdminIndexService {
     private AdminIndexInfo adminIndexInfos;
     @Resource
     private RosterService rosterService;
+    /**
+     * 初始化主页
+     * @return 返回最新的4个栏位的公告或动态
+     * */
     public Map<String,PublicMsg> indexInit(){
-        //初始化主页
         Map<String,PublicMsg> map = new HashMap<>(5);
         PublicMsg publicMsgs1 = adminIndexInfos.queryPublicMsg("1");
         publicMsgs1.setModifydate(publicMsgs1.getModifydate().substring(0,10));
@@ -41,7 +44,16 @@ public class AdminIndexService {
         map.put("msg4",publicMsgs4);
         return map;
     }
-    public void updatePublicMsg(String types,String msg,String no){//管理员插入主页最新消息
+    /**
+     * 管理员插入主页最新消息
+     * @param types
+     *        发布类型（公告或动态）
+     * @param msg
+     *        具体内容
+     * @param no
+     *        栏位
+     * */
+    public void updatePublicMsg(String types,String msg,String no){
         PublicMsg publicMsg = new PublicMsg();
         publicMsg.setModifydate(rosterService.getDateTime());
         publicMsg.setMsg(msg);
@@ -49,6 +61,11 @@ public class AdminIndexService {
         publicMsg.setNo(no);
         adminIndexInfos.updatePublicMsg(publicMsg);
     }
+    /**
+     * 管理员主页初始化
+     * @see BooleanSessionExist
+     * @return 返回所有公告或者动态信息
+     * */
     public List<PublicMsg> backIndexInit( HttpServletRequest request){
         if (!BooleanSessionExist.booleanSession(request)){
             return null;

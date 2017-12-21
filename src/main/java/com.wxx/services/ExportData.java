@@ -67,7 +67,6 @@ public class ExportData {
                 }
             }
             if (list1.get(0) instanceof Schedules){
-                List<Schedules> list2 = list1;
                 HSSFCell cell = row.createCell(0);
                 cell.setCellValue("课程");
                 cell.setCellStyle(style);
@@ -88,9 +87,9 @@ public class ExportData {
                 cell = row.createCell(6);
                 cell.setCellValue("排课时间");
                 cell.setCellStyle(style);
-                for (int i = 0; i < list2.size(); i++) {
+                for (int i = 0; i < list1.size(); i++) {
                     row = sheet.createRow(i + 1);
-                    Schedules schedules = list2.get(i);
+                    Schedules schedules = (Schedules) list1.get(i);
                     row.createCell(0).setCellValue(schedules.getCourse().getCoursename());
                     row.createCell(1).setCellValue(schedules.getUser().getName());
                     row.createCell(2).setCellValue(schedules.getScheclass());

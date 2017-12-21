@@ -21,6 +21,8 @@ public class AdminCallService {
     @Resource
     private AdminCallInfo adminCallInfo;
     /**
+     * @param request
+     *        用户判断是否存在用户名session
      * @return map值依次为 点名信息、教师、班级、学院、课程
      * */
     public Map<String,List> queryAllCall(HttpServletRequest request){
@@ -44,7 +46,16 @@ public class AdminCallService {
         return map;
     }
     /**
-     * @param teacher:教师id classes:班级名称 kind:学院名称  begindate 开始时间 enddate 结束时间
+     * @param teacher
+     *        教师id
+     * @param classes
+     *        班级名称
+     * @param kind
+     *        学院名称
+     * @param begindate
+     *        开始时间
+     * @param enddate
+     *        结束时间
      * */
     public void filters(String teacher, String classes, String kind, String begindate, String enddate,
                          Model model, HttpServletRequest request){
@@ -60,6 +71,10 @@ public class AdminCallService {
         model.addAttribute("enddate",enddate);
         model.addAttribute("allcall",list);
     }
+    /**
+     * @param id
+     *        点名编号
+     * */
     public void removeCall(String id){
         adminCallInfo.removeCall(id);
     }

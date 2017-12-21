@@ -21,7 +21,11 @@ public class AdminUserService {
     private CenterInfo centerInfo;
     @Resource
     private AdminCallInfo adminCallInfo;
-    public Map<String,List> userInit(HttpServletRequest request){//页面初始化
+    /**
+     * 页面初始化
+     * @return map 返回所有用户、班级、学院的集合
+     * */
+    public Map<String,List> userInit(HttpServletRequest request){
         if (!BooleanSessionExist.booleanSession(request)){
             return null;
         }
@@ -34,10 +38,27 @@ public class AdminUserService {
         map.put("allkind",allkind);
         return map;
     }
-    public void removeUser(String username){//管理员移除用户
+    /**
+     * 管理员移除用户
+     * @param username
+     *        用户名
+     * */
+    public void removeUser(String username){
         centerInfo.removeUser(username);
     }
-    public boolean updateUser(String username,String password,String name,String status){//管理员更新用户
+    /**
+     * 管理员更新用户
+     * @param username
+     *        用户名
+     * @param password
+     *        密码
+     * @param name
+     *        姓名
+     * @param status
+     *        用户状态
+     * @return 更新成功则返回true
+     * */
+    public boolean updateUser(String username,String password,String name,String status){
         if("".equals(password) || "".equals(name)){
             return false;
         }
@@ -49,8 +70,23 @@ public class AdminUserService {
         centerInfo.updateUserByAdmin(user);
         return true;
     }
+    /**
+     * 管理员新增用户
+     * @param username
+     *        用户名
+     * @param password
+     *        密码
+     * @param name
+     *        姓名
+     * @param status
+     *        用户状态
+     * @param classes
+     *        用户所在班级（学生）
+     * @param kind
+     *        用户所在学院（教师）
+     * */
     public void saveUser(String username,String password,String name,String status,
-                         String classes,String kind){//管理员新增用户
+                         String classes,String kind){
         User user = new User();
         user.setUsername(username);
         user.setPassword(password);

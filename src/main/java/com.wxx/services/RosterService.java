@@ -96,28 +96,24 @@ public class RosterService {
     public final String getTime(){
         Date date = new Date();
         DateFormat format=new SimpleDateFormat("HH:mm:ss");
-        String now = format.format(new Date(date.getTime() + 5 * 60 *1000));
         //往后推5分钟
-        return now;
+        return format.format(new Date(date.getTime() + 5 * 60 *1000));
     }
     public final String getWeekend(){
         Date dt = new Date();
         Calendar cal = Calendar.getInstance();
         cal.setTime(dt);
         int w = cal.get(Calendar.DAY_OF_WEEK) - 1;
-        String week = String.valueOf(w);
-        return week;
+        return String.valueOf(w);
     }
     public String getDate(){
         Date d = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        String dateNowStr = sdf.format(d);
-        return dateNowStr;
+        return sdf.format(d);
     }
     public String getDateTime(){
         Date d = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String dateNowStr = sdf.format(d);
-        return dateNowStr;
+        return sdf.format(d);
     }
 }

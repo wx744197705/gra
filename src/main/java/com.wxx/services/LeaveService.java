@@ -22,10 +22,28 @@ public class LeaveService {
     private AdminCallInfo adminCallInfo;
     @Resource
     private LeaveInfo leaveInfo;
+    @Resource
+    private RosterService rosterService;
+    /**
+     * 插入请假条
+     *
+     * @param simplemsg
+     *        请假原因
+     * @param reqtypes
+     *        请假类型
+     * @param begindate
+     *        开始时间
+     * @param enddate
+     *        结束时间
+     * @param student
+     *        请假人ID
+     * @param teacher
+     *        请假对象ID
+     * @see RosterService#getDateTime()
+     * */
     public void saveLeave(String simplemsg, String reqtypes, String begindate, String enddate
             , HttpServletRequest request, String student, String teacher){
-        SimpleDateFormat dfs = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String date = dfs.format(new Date());
+        String date = rosterService.getDateTime();
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
         Leave leave = new Leave();
@@ -39,7 +57,10 @@ public class LeaveService {
         leave.setUsername(user.getUsername());
         leaveInfo.leaveReq(leave);
     }
-
+    /**
+     * 查询请假历史记录
+     * @return 请假历史和所有教师列表
+     * */
     public Map<String,List> leaveHis(HttpServletRequest request){
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
@@ -53,6 +74,9 @@ public class LeaveService {
         map.put("allteacher",users);
         return map;
     }
+    /**
+     * 教师加载请假学生记录
+     * */
     public void checkReq(HttpServletRequest request,Model model){
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
@@ -68,16 +92,16 @@ public class LeaveService {
         List<Leave> list = leaveInfo.checkReq(user.getName());
         model.addAttribute("leaves",list);
     }
+    /**
+     * 教师审批假条
+     * @param id
+     *        假条编号
+     * @see RosterService#getDateTime()
+     * */
     public void stateChange(String id){
-        leaveInfo.updateState(id,getDateTime());
+        leaveInfo.updateState(id,rosterService.getDateTime());
     }
     public void removeReq(String id){
         leaveInfo.removeReq(id);
-    }
-    private String getDateTime(){
-        Date d = new Date();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String dateNowStr = sdf.format(d);
-        return dateNowStr;
     }
 }

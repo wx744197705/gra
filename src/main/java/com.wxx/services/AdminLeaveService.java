@@ -39,6 +39,11 @@ public class AdminLeaveService {
         map.put("counts",callCounts);
         return map;
     }
+    /**
+     * 管理员移除请假信息
+     * @param id
+     *        假条编号
+     * */
     public void admRemove(String id){
         adminLeaveInfo.removeLeave(id);
     }

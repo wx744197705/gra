@@ -24,7 +24,7 @@ public class CenterController {
      * */
     @RequestMapping("centerinit")
     public String centerInit(HttpServletRequest request, Model model){
-        HashMap<String,List> hashMap = (HashMap<String, List>) centerService.centerInit(request);
+        HashMap<String,List> hashMap = (HashMap<String, List>) centerService.centerInit(request,model);
         if (hashMap == null){
             model.addAttribute("errortype","1");
             return "center.jsp";
@@ -40,11 +40,18 @@ public class CenterController {
     @RequestMapping("sendmessage")
     public String sendMessage(@RequestParam("receiver") String receiver,
                               @RequestParam("contents") String contents,HttpServletRequest request,Model model){
-        centerService.sendMassage(request,model,receiver,contents);
+        if(centerService.sendMassage(request,receiver,contents)){
+            model.addAttribute("success","1");
+        }
+        else {
+            model.addAttribute("errortype","1");
+        }
         return "success.jsp";
     }
     /**
-     * 用户删除消息，flag判断是发送的消息，还是接受的消息
+     * 用户删除消息
+     * @param flag
+     *        判断是发送的消息，还是接受的消息
      * */
     @RequestMapping("removemessage")
     @ResponseBody
@@ -58,7 +65,12 @@ public class CenterController {
     @RequestMapping(value = "updateuser")
     public String updateUser(@RequestParam("pwd") String pwd, HttpServletRequest request,
                              Model model){
-        centerService.updateUser(request,pwd,model);
+        if (centerService.updateUser(request,pwd)){
+            model.addAttribute("success","1");
+        }
+        else {
+            model.addAttribute("errortype","1");
+        }
         return "index.jsp";
     }
 }
