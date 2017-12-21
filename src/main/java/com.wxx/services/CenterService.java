@@ -1,6 +1,5 @@
 package com.wxx.services;
 
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import com.wxx.dao.CenterInfo;
 import com.wxx.model.Center;
 import com.wxx.model.User;
@@ -24,7 +23,7 @@ public class CenterService {
     /**
      * 个人中心初始化
      * @param model
-     *        <b>Map<String,List></>无法放入User,则在此方法内设置部分model
+     *        Map<String,List>无法放入User,则在此方法内设置部分model
      * @return 返回所有接收消息、所有发送消息、所有用户
      * */
     public Map<String,List> centerInit(HttpServletRequest request, Model model){

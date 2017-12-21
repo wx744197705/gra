@@ -14,10 +14,6 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-/**
- * Created by wxx on 2017/9/16.
- */
 /**
  * @author wangxinxin
  * */
