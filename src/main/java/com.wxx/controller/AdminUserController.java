@@ -27,17 +27,28 @@ public class AdminUserController {
         model.addAttribute("allkind",hashMap.get("allkind"));
         return "backuser.jsp";
     }
-
-    @RequestMapping(value = "removeuser")//移除用户
-    @ResponseBody
     /**
-     * 移除用户
+     * 管理员移除用户
+     * @param username
+     *        用户名
+     * @see AdminUserService#removeUser(String)
      * */
+    @RequestMapping(value = "removeuser")
+    @ResponseBody
     public void removeUser(@RequestParam("username") String username){
         adminUserService.removeUser(username);
     }
     /**
      * 管理员更新用户
+     * @param username
+     *        用户名
+     * @param password
+     *        密码
+     * @param name
+     *        姓名
+     * @param status
+     *        身份状态
+     * @see AdminUserService#updateUser(String, String, String, String)
      * */
     @RequestMapping(value = "updateuserbyadmin")
     public String updateUser(@RequestParam(value = "username") String username,
@@ -50,11 +61,24 @@ public class AdminUserController {
         model.addAttribute("backuser","1");
         return "success.jsp";
     }
+    /**
+     * 管理员新增用户
+     * @param username
+     *        用户名
+     * @param password
+     *        密码
+     * @param name
+     *        姓名
+     * @param classes
+     *        班级（学生）
+     * @param status
+     *        身份状态
+     * @param kind
+     *        学院（学生）
+     * @see AdminUserService#saveUser(String, String, String, String, String, String)
+     * */
     @RequestMapping(value = "saveuser")
     @ResponseBody
-    /**
-     * 新增用户
-     * */
     public void saveUser(@RequestParam("username") String username,
                          @RequestParam(value = "password",required = false,defaultValue = "") String password,
                          @RequestParam("name") String name,

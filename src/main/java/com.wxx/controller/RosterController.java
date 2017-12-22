@@ -25,6 +25,7 @@ public class RosterController {
     private RosterService rosterService;
     /**
      * 页面加载，自动加载名册和班级
+     * @see RosterService#judgeInit(HttpServletRequest, Model)
      * */
     @RequestMapping(value = "queryros")
     public String queryRoster(HttpServletRequest request,Model model){
@@ -33,6 +34,9 @@ public class RosterController {
     }
     /**
      * 教师重新选择班级，重新加载名册
+     * @param name
+     *        班级名称
+     * @see RosterService#judgeReload(HttpServletRequest, Model, String)
      * */
     @RequestMapping(value = "reloads")
     public String reload(@RequestParam(value = "name",required = false, defaultValue = "")String name,HttpServletRequest request,Model model) {
@@ -41,6 +45,11 @@ public class RosterController {
     }
     /**
      * 保存点名信息
+     * @param str
+     *        缺课学生列表
+     * @param id
+     *        备注
+     * @see RosterService#saveCall(HttpServletRequest, String, String[])
      * */
     @RequestMapping(value = "ajax")
     @ResponseBody
@@ -50,7 +59,12 @@ public class RosterController {
         rosterService.saveCall(request,id,str);
     }
     /**
-     * //删除缺课学生
+     * 删除缺课学生
+     * @param stuid
+     *        学生学号
+     * @param calldate
+     *        点名时间
+     * @see RosterInfo#removeHistory(String, String)
      * */
     @RequestMapping(value = "removehis")
     @ResponseBody
@@ -59,6 +73,7 @@ public class RosterController {
     }
     /**
      * 导出点名信息到excel
+     * @see ExportData#exportHis(HttpServletRequest, HttpServletResponse)
      * */
     @RequestMapping(value = "export")
     public String exportHis(HttpServletRequest request, HttpServletResponse response)throws Exception{

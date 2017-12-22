@@ -20,11 +20,26 @@ import java.util.List;
  * */
 @Controller
 public class LeaveController {
-
     @Resource
     private LeaveService leaveService;
+    /**
+     * 学生请假，插入请假条
+     * @param simplemsg
+     *        请假理由
+     * @param reqtypes
+     *        请假类型
+     * @param student
+     *        请假学生
+     * @param teacher
+     *        请假对象
+     * @param begindate
+     *        开始时间
+     * @param enddate
+     *        结束时间
+     * @see LeaveService#saveLeave(String, String, String, String, HttpServletRequest, String, String)
+     * */
     @RequestMapping( value = "leavereq")
-    public String leaveres(@RequestParam("simplemsg") String simplemsg, @RequestParam("reqtypes") String reqtypes
+    public String leaveRequest(@RequestParam("simplemsg") String simplemsg, @RequestParam("reqtypes") String reqtypes
                             , @RequestParam("begindate") String begindate, @RequestParam("enddate") String enddate
                             , HttpServletRequest request,Model model, @RequestParam("student") String student
                             , @RequestParam("teacher") String teacher){
@@ -34,7 +49,8 @@ public class LeaveController {
         return "success.jsp";
     }
 /**
- * 页面判断，如果没有session则返回，有则初始化页面
+ * 加载历史请假
+ * @see LeaveService#leaveHis(HttpServletRequest)
  * */
     @RequestMapping(value = "leavehis")
     public String leaveHis(HttpServletRequest request, Model model){
@@ -47,19 +63,32 @@ public class LeaveController {
         model.addAttribute("allteacher",hashMap.get("allteacher"));
         return "leavereq.jsp";
     }
-
+    /**
+     * 教师加载请假学生名单
+     * @see LeaveService#checkReq(HttpServletRequest, Model)
+     * */
     @RequestMapping(value = "checkreq")
     public String checkReq(HttpServletRequest request, Model model){
         leaveService.checkReq(request,model);
         return "checkreq.jsp";
     }
-
+    /**
+     * 教师审批通过
+     * @param id
+     *        假条编号
+     * @see LeaveService#stateChange(String)
+     * */
     @RequestMapping(value = "statechange")
     @ResponseBody
     public void stateChange(@RequestParam("id") String id){
         leaveService.stateChange(id);
     }
-
+    /**
+     * 学生存档前移除假条
+     * @param id
+     *        假条编号
+     * @see LeaveService#removeReq(String)
+     * */
     @RequestMapping(value = "removereq")
     @ResponseBody
     public void removeReq(@RequestParam("id") String id){

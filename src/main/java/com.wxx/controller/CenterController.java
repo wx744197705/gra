@@ -21,6 +21,7 @@ public class CenterController {
     private CenterService centerService;
     /**
      * 个人中心初始化
+     * @see CenterService#centerInit(HttpServletRequest, Model)
      * */
     @RequestMapping("centerinit")
     public String centerInit(HttpServletRequest request, Model model){
@@ -36,6 +37,11 @@ public class CenterController {
     }
     /**
      * 用户发送信息
+     * @param receiver
+     *        消息发送者
+     * @param contents
+     *        消息内容
+     * @see CenterService#sendMassage(HttpServletRequest, String, String)
      * */
     @RequestMapping("sendmessage")
     public String sendMessage(@RequestParam("receiver") String receiver,
@@ -52,6 +58,9 @@ public class CenterController {
      * 用户删除消息
      * @param flag
      *        判断是发送的消息，还是接受的消息
+     * @param id
+     *        记录ID
+     * @see CenterService#removeMessage(String, String)
      * */
     @RequestMapping("removemessage")
     @ResponseBody
@@ -61,6 +70,9 @@ public class CenterController {
     }
     /**
      * 用户修改密码
+     * @param pwd
+     *        用户修改的新密码
+     * @see CenterService#updateUser(HttpServletRequest, String)
      * */
     @RequestMapping(value = "updateuser")
     public String updateUser(@RequestParam("pwd") String pwd, HttpServletRequest request,

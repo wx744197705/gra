@@ -21,12 +21,19 @@ import javax.servlet.http.HttpSession;
 public class LoginController {
     @Resource
     private LoginInfo loginInfo;
-
+    /**
+     * 验证登录
+     * @param username
+     *        用户名
+     * @param password
+     *        密码
+     * @see LoginInfo#Check(String)
+     * @return 正确返回成功页面，否则返回错误页面
+     * */
     @RequestMapping(value = "/login")
     public String loc(Model model, @RequestParam("username") String username,
                       @RequestParam("password") String password,
-                      HttpServletResponse response, HttpServletRequest request)throws Exception{
-        response.setContentType("text/html;charset=UTF-8");
+                       HttpServletRequest request){
         User user = loginInfo.Check(username);
         if (user != null && user.getPassword().equals(password)){
             HttpSession session=request.getSession();
@@ -43,6 +50,9 @@ public class LoginController {
         model.addAttribute("index","1");
         return "success.jsp";
     }
+    /**
+     * 用户注销
+     * */
     @RequestMapping(value = "destroy")
     public String destroyUser(HttpServletRequest request){
         HttpSession session = request.getSession();
