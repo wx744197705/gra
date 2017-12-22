@@ -20,11 +20,12 @@ public class AdminLeaveController {
     @Resource
     private AdminLeaveService adminLeaveService;
     /**
-     * 初始化页面
+     * 管理员请假界面初始化
+     * @see AdminLeaveService#leaveRequest(HttpServletRequest)
      * */
     @RequestMapping(value = "queryleave")
     public String leaveReq(Model model, HttpServletRequest request){
-        HashMap<String,List> listHashMap = (HashMap<String, List>) adminLeaveService.leaveReq(request);
+        HashMap<String,List> listHashMap = (HashMap<String, List>) adminLeaveService.leaveRequest(request);
         if (listHashMap == null){
             model.addAttribute("errortypes","1");
             return "backleave.jsp";
@@ -35,6 +36,9 @@ public class AdminLeaveController {
     }
     /**
      * 管理员删除假条
+     * @param id
+     *        假条ID
+     * @see AdminLeaveService#admRemove(String)
      * */
     @RequestMapping(value = "admremovereq")
     public void admRemove(@RequestParam("id") String id){

@@ -21,6 +21,10 @@ import java.util.List;
 public class AdminCallController {
     @Resource
     private AdminCallService adminCallService;
+    /**
+     * 管理员查询所有点名记录
+     * @see AdminCallService#queryAllCall(HttpServletRequest)
+     * */
     @RequestMapping(value = "queryallcall")
     public String queryAllCall(Model model,HttpServletRequest request){
         HashMap<String,List> hashMap= (HashMap<String, List>) adminCallService.queryAllCall(request);
@@ -35,10 +39,29 @@ public class AdminCallController {
         model.addAttribute("allcourse",hashMap.get("allcourse"));
         return "backcall.jsp";
     }
+    /**
+     * 管理员删除点名信息
+     * @see AdminCallService#removeCall(String)
+     * */
     @RequestMapping(value = "admremovecall")
     public void admRemoveCall(@RequestParam("id") String id){
         adminCallService.removeCall(id);
     }
+    /**
+     * 管理员筛选点名信息
+     * @param teacher
+     *        点名教师ID
+     * @param classes
+     *        班级名称
+     * @param kind
+     *        学院
+     * @param begindate
+     *        开始时间
+     * @param enddate
+     *        结束时间
+     * @see AdminCallService#queryAllCall(HttpServletRequest)
+     * @see AdminCallService#filters(String, String, String, String, String, Model, HttpServletRequest)
+     * */
     @RequestMapping(value = "filters")
     public String filters(@RequestParam(value = "teacher",required = false,defaultValue = "") String teacher,
                           @RequestParam(value = "classes",required = false,defaultValue = "") String classes,

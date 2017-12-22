@@ -14,9 +14,6 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by wxx on 2017/11/5.
- */
-/**
  * @author wangxinxin
 **/
 public class AdminLeaveService {
@@ -25,7 +22,7 @@ public class AdminLeaveService {
     /**
      * @return 返回学生请假信息和请假统计情况
      * */
-    public Map<String,List> leaveReq(HttpServletRequest request){
+    public Map<String,List> leaveRequest(HttpServletRequest request){
         if(!BooleanSessionExist.booleanSession(request)){
             return null;
         }
