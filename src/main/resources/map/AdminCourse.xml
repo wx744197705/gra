@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wxx.dao.AdminCourseInfo">
+    <resultMap id="course" type="Course">
+        <result column="courseid" property="courseid" />
+        <result column="coursename" property="coursename" />
+    </resultMap>
+    <select id="courseLoad" resultMap="course">
+        SELECT * FROM tb_course;
+    </select>
+    <!--查询所有课程信息-->
+    <delete id="removeCourse" parameterType="String">
+        DELETE FROM tb_course WHERE courseid = #{courseid}
+    </delete>
+</mapper>

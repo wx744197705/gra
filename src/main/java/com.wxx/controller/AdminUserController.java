@@ -22,6 +22,10 @@ public class AdminUserController {
     @RequestMapping(value = "userinfoinit")
     public String userInfoInit(Model model, HttpServletRequest request){
         HashMap<String,List> hashMap = (HashMap<String, List>) adminUserService.userInit(request);
+        if (hashMap == null){
+            model.addAttribute("errortype","1");
+            return "backuser.jsp";
+        }
         model.addAttribute("alluser",hashMap.get("alluser"));
         model.addAttribute("allclass",hashMap.get("allclass"));
         model.addAttribute("allkind",hashMap.get("allkind"));

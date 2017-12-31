@@ -164,6 +164,7 @@
                         <li><a href="${pageContext.request.contextPath}/queryallcall"><i class="fa fa-laptop"></i><span class="text"> 点名记录</span></a></li>
                         <li><a href="${pageContext.request.contextPath}/scheload"><i class="fa fa-laptop"></i><span class="text"> 教师排课</span></a></li>
                         <li><a href="${pageContext.request.contextPath}/userinfoinit"><i class="fa fa-laptop"></i><span class="text"> 用户信息</span></a></li>
+                        <li><a href="${pageContext.request.contextPath}/courseload"><i class="fa fa-laptop"></i><span class="text"> 课程编辑</span></a></li>
                     </ul>
                 </div>
             </div>
@@ -291,7 +292,6 @@
         <script>
             function admindel(id) {
                 if(confirm("确定删除？")){
-
                     delreq(id);
                 }
             }

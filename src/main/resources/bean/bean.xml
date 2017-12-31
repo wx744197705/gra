@@ -11,4 +11,5 @@
     <bean id="adminScheduleInfoImpl" class="com.wxx.services.CenterService" />
     <bean id="adminUserService" class="com.wxx.services.AdminUserService" />
     <bean id="adminIndexService" class="com.wxx.services.AdminIndexService" />
+    <bean id="adminCourseService" class="com.wxx.services.AdminCourseService" />
 </beans>

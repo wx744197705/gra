@@ -148,7 +148,7 @@
 </div>
 <!-- end: Header -->
 <script>
-    var error = ${errortype}
+    var error =${errortype}
     if(error == "1"){
         alert("请登录");
         window.location.href = 'login.jsp';
@@ -179,6 +179,7 @@
                         <li><a href="${pageContext.request.contextPath}/queryallcall"><i class="fa fa-laptop"></i><span class="text"> 点名记录</span></a></li>
                         <li><a href="${pageContext.request.contextPath}/scheload"><i class="fa fa-laptop"></i><span class="text"> 教师排课</span></a></li>
                         <li><a href="${pageContext.request.contextPath}/userinfoinit"><i class="fa fa-laptop"></i><span class="text"> 用户信息</span></a></li>
+                        <li><a href="${pageContext.request.contextPath}/courseload"><i class="fa fa-laptop"></i><span class="text"> 课程编辑</span></a></li>
                     </ul>
                 </div>
             </div>

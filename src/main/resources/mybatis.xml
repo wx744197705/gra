@@ -27,5 +27,6 @@
         <mapper resource="map/AdminSchedule.xml" />
         <mapper resource="map/Center.xml" />
         <mapper resource="map/AdminIndex.xml" />
+        <mapper resource="map/AdminCourse.xml" />
     </mappers>
 </configuration>

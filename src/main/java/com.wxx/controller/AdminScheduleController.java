@@ -33,7 +33,7 @@ public class AdminScheduleController {
         adminScheduleService.queryAllSche(model,request);
         HashMap<String,List> hashMap= (HashMap<String, List>) adminCallService.queryAllCall(request);
         if (hashMap == null){
-            model.addAttribute("errortypes","1");
+            model.addAttribute("errortype","1");
             return "backcall.jsp";
         }
         model.addAttribute("allcall",hashMap.get("allcall"));

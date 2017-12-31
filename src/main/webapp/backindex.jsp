@@ -21,27 +21,14 @@
 
 		<!-- Fav and touch icons -->
 		<link rel="shortcut icon" href="assets/ico/favicon.ico" type="image/x-icon" />
-
-	    <!-- Css files -->
 	    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
 		<link href="assets/css/font-awesome.min.css" rel="stylesheet">
 		<link href="assets/css/climacons-font.css" rel="stylesheet">
-		<!--<link href="assets/plugins/xcharts/css/xcharts.min.css" rel=" stylesheet">-->
-		<!--<link href="assets/plugins/fullcalendar/css/fullcalendar.css" rel="stylesheet">-->
-		<!--<link href="assets/plugins/morris/css/morris.css" rel="stylesheet">-->
-		<!--<link href="assets/plugins/jquery-ui/css/jquery-ui-1.10.4.min.css" rel="stylesheet">-->
-		<!--<link href="assets/plugins/jvectormap/css/jquery-jvectormap-1.2.2.css" rel="stylesheet">-->
 	    <link href="assets/css/style.min.css" rel="stylesheet">
 		<link href="assets/css/add-ons.min.css" rel="stylesheet">
 		<link rel="stylesheet" type="text/css" href="css/mdialog.css">
 		<script type="text/javascript" src="js/zepto.min.js"></script>
 		<script type="text/javascript" src="js/mdialog.js"></script>
-
-	    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-	    <!--[if lt IE 9]>
-			<!--<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>-->
-			<!--<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>-->
-	    <![endif]-->
 	</head>
 	<style>
 		option{
@@ -140,6 +127,7 @@
 							<li><a href="${pageContext.request.contextPath}/queryallcall"><i class="fa fa-laptop"></i><span class="text"> 点名记录</span></a></li>
 							<li><a href="${pageContext.request.contextPath}/scheload"><i class="fa fa-laptop"></i><span class="text"> 教师排课</span></a></li>
 							<li><a href="${pageContext.request.contextPath}/userinfoinit"><i class="fa fa-laptop"></i><span class="text"> 用户信息</span></a></li>
+							<li><a href="${pageContext.request.contextPath}/courseload"><i class="fa fa-laptop"></i><span class="text"> 课程编辑</span></a></li>
 						</ul>
 					</div>
 				</div>
