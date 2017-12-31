@@ -1,15 +1,23 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
-  User: wxx
-  Date: 2017/12/31
-  Time: 14:33
+  User: SAB
+  Date: 2017-11-14
+  Time: 9:09
   To change this template use File | Settings | File Templates.
 --%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>Title</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>用户中心</title>
+
+    <!-- Import google fonts - Heading first/ text second -->
+    <%--<link rel='stylesheet' type='text/css' href='http://fonts.useso.com/css?family=Open+Sans:400,700|Droid+Sans:400,700' />--%>
+    <!--[if lt IE 9]>
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:400" rel="stylesheet" type="text/css" />
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:700" rel="stylesheet" type="text/css" />
     <link href="http://fonts.googleapis.com/css?family=Droid+Sans:400" rel="stylesheet" type="text/css" />
@@ -20,17 +28,59 @@
     <%--<link rel="shortcut icon" href="assets/ico/favicon.ico" type="image/x-icon" />--%>
 
     <!-- Css files -->
-    <link rel="stylesheet" type="text/css" href="css/mdialog.css">
     <link href="assets/css/bootstrap.min.css" rel="stylesheet">
     <link href="assets/css/font-awesome.min.css" rel="stylesheet">
     <link href="assets/css/climacons-font.css" rel="stylesheet">
+    <%--<link href="assets/plugins/xcharts/css/xcharts.min.css" rel=" stylesheet">--%>
+    <%--<link href="assets/plugins/fullcalendar/css/fullcalendar.css" rel="stylesheet">--%>
+    <%--<link href="assets/plugins/morris/css/morris.css" rel="stylesheet">--%>
+    <%--<link href="assets/plugins/jquery-ui/css/jquery-ui-1.10.4.min.css" rel="stylesheet">--%>
+    <%--<link href="assets/plugins/jvectormap/css/jquery-jvectormap-1.2.2.css" rel="stylesheet">--%>
     <link href="assets/css/style.min.css" rel="stylesheet">
     <link href="assets/css/add-ons.min.css" rel="stylesheet">
     <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
     <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="css/messenger.css" rel="stylesheet">
+    <link href="css/messenger-theme-future.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/mdialog.css">
+    <script type="text/javascript" src="js/zepto.min.js"></script>
+    <script type="text/javascript" src="js/mdialog.js"></script>
+
     <style>
+        #table-3 thead, #table-3 tr {
+            border-top-width: 1px;
+            border-top-style: solid;
+            border-top-color: rgb(235, 242, 224);
+            padding: 10px 0;
+        }
+        #table-3 {
+            border-bottom-width: 1px;
+            border-bottom-style: solid;
+            border-bottom-color: rgb(235, 242, 224);
+            margin: 10px;
+        }
+
+        /* Padding and font style */
+        #table-3 td, #table-3 th {
+            padding: 5px 10px;
+            font-size: 16px;
+            font-family: Verdana;
+            color: rgb(149, 170, 109);
+        }
+
+        /* Alternating background colors */
+        #table-3 tr:nth-child(even) {
+            background: rgb(230, 238, 214)
+        }
+        #table-3 tr:nth-child(odd) {
+            background: #FFF
+        }
         /* Table Head */
+        #table-6{
+            margin: 30px 0;
+        }
         #table-6 thead th {
+            margin: 30px 0;
             background-color: rgb(77, 160, 107);
             color: #fff;
             border-bottom-width: 0;
@@ -54,51 +104,23 @@
             font-family: Verdana;
             font-weight: bold;
         }
-        .selects{
-            width: 150px;
-            height: 30px;
-            line-height: 30px;
-            background: rgba(255,255,255,0);
-            font-size: 16px;
-            font-weight: bold;
-        }
         option{
-            background-color: #EEEEEE;
-            color: #2A579A;
-            font-weight: bold;
-            padding: 10px;
-            font-size: 16px;
+            height: 400px;
             overflow: scroll;
-            height: 300px;
-            opacity: 0.1;
+            background-color: #eeeeee;
+            font-size: 18px;
+            font-weight: bold;
         }
-        ::-webkit-scrollbar {
-            width: 0;
-            height: 0;
+        .text{
+            width: 200px;
+            margin: 10px;
         }
-
     </style>
 </head>
+
 <body>
-<div class="navbar" role="navigation">
-    <div class="container-fluid">
-        <%--<input type="color" onchange="demo()" id="demo">--%>
-        <%--<script>--%>
-        <%--function demo() {--%>
-        <%--alert(document.getElementById("demo").value);--%>
-        <%--}--%>
-        <%--</script>--%>
-
-        <%--<ul class="nav navbar-nav navbar-actions navbar-left">--%>
-        <%--<li class="visible-md visible-lg"><a href="backindex.jsp#" id="main-menu-toggle"><i class="fa fa-th-large"></i></a></li>--%>
-        <%--<li class="visible-xs visible-sm"><a href="backindex.jsp#" id="sidebar-menu"><i class="fa fa-navicon"></i></a></li>--%>
-        <%--</ul>--%>
-    </div>
-
-</div>
-<!-- end: Header -->
 <script>
-    var error =${errortype}
+    var error = ${errortype}
     if(error == "1"){
         alert("请登录");
         window.location.href = 'login.jsp';
@@ -111,6 +133,19 @@
         history.go(-1);
     }
 </script>
+<!-- start: Header -->
+<div class="navbar" role="navigation">
+    <div class="container-fluid">
+
+        <%--<ul class="nav navbar-nav navbar-actions navbar-left">--%>
+        <%--<li class="visible-md visible-lg"><a href="backindex.jsp#" id="main-menu-toggle"><i class="fa fa-th-large"></i></a></li>--%>
+        <%--<li class="visible-xs visible-sm"><a href="backindex.jsp#" id="sidebar-menu"><i class="fa fa-navicon"></i></a></li>--%>
+        <%--</ul>--%>
+    </div>
+
+</div>
+<!-- end: Header -->
+
 <div class="container-fluid content">
 
     <div class="row">
@@ -134,65 +169,162 @@
                 </div>
             </div>
         </div>
-            <% String[] color = {"","success","info","warning","danger"}; int i = 0; %>
-        <div style="width: 80%;height: 600px;float: right;overflow: scroll">
-            <div class="table-responsive">
+        <div style="width: 80%;height: 600px;float: right">
+            <div class="table-responsive" style="margin: 30px 0;height: 600px;overflow: scroll;">
                 <table class="table" id="table-6">
                     <thead>
                     <tr>
-                        <th>课程代码</th>
+                        <th>课程编号</th>
                         <th>课程名字</th>
                         <th>编辑</th>
                     </tr>
                     </thead>
                     <tbody>
+
                     <c:forEach items="${allcourse}" var="allcourse">
-                        <tr id="${allcourse.courseid}">
+                        <tr class="" id="${allcourse.courseid}">
                             <td>${allcourse.courseid}</td>
                             <td>${allcourse.coursename}</td>
                             <td style="color: red" onclick="removeCourse('${allcourse.courseid}')">删除</td>
                         </tr>
                     </c:forEach>
-                    <%--<c:forEach items="${allsche}" var="allsche">--%>
-                        <%--&lt;%&ndash;<tr class="" id="${allsche.scheid}">&ndash;%&gt;--%>
-                            <%--&lt;%&ndash;<td>${allsche.scheid}</td>&ndash;%&gt;--%>
-                            <%--&lt;%&ndash;<td>${allsche.course.coursename}</td>&ndash;%&gt;--%>
-                            <%--&lt;%&ndash;<td>${allsche.user.name}</td>&ndash;%&gt;--%>
-                            <%--&lt;%&ndash;<td>${allsche.scheclass}</td>&ndash;%&gt;--%>
-                            <%--&lt;%&ndash;<td>${allsche.scheweek}</td>&ndash;%&gt;--%>
-                            <%--&lt;%&ndash;<td>${allsche.schebegin}</td>&ndash;%&gt;--%>
-                            <%--&lt;%&ndash;<td>${allsche.scheend}</td>&ndash;%&gt;--%>
-                            <%--&lt;%&ndash;<td>${allsche.schedate}</td>&ndash;%&gt;--%>
-                            <%--&lt;%&ndash;<td><strong style="color: #2A579A;cursor: pointer" onclick="adminadd()">新增</strong>/&ndash;%&gt;--%>
-                                <%--&lt;%&ndash;<strong style="color: red;cursor: pointer" onclick="admindel('${allsche.scheid}')">删除</strong></td>&ndash;%&gt;--%>
-                        <%--&lt;%&ndash;</tr>&ndash;%&gt;--%>
-                    <%--</c:forEach>--%>
                     </tbody>
                 </table>
-            </div>
-            <script>
-                function removeCourse(id) {
-                    if(confirm("确定删除？")){
-                        delreq(id);
-                    }
-                }
-                function delreq(id) {
-                    url = '/remove?courseid='+id;
-                    $.ajax({
-                        url:url,
-                        type:"post",
-                        dataType:"json",
-                        contentType: 'application/x-www-form-urlencoded; charset=UTF-8',//防止乱码
-                        success:function(data){
-                            document.getElementById(id).style.display = 'none';
-                            new TipBox({type:'success',str:'删除成功!',hasBtn:true});
-                        }
-                    });
-                    //location.href = '/remove?courseid='+id;
-                }
-            </script>
+                <%--${alluser}--%>
 
+            </div>
 
         </div>
+
+
+        <%--<script>--%>
+        <%--function updateuser() {--%>
+        <%--window.location.href--%>
+        <%--}--%>
+        <%--</script>--%>
+        <script>
+            function removeCourse(id) {
+                if(confirm("确定删除？")){
+                    delreq(id);
+                }
+            }
+            function delreq(id) {
+                param = "/remove?courseid="+id;
+                $.ajax({
+                    url:param,
+                    type:"get",
+                    dataType:"json",
+                    contentType: 'application/x-www-form-urlencoded; charset=UTF-8',//防止乱码
+                    success:function(data){
+                        document.getElementById(id).style.display = 'none';
+                        new TipBox({type:'success',str:'删除成功!',hasBtn:true});
+                    }
+                });
+            }
+        </script>
+        <!-- end: Main Menu -->
+
+        <!-- start: Content -->
+        <div class="main">
+        </div>
+        <!-- end: Content -->
+        <br><br><br>
+
+
+
+
+    </div><!--/container-->
+
+
+    <%--<div class="modal fade" id="myModal">--%>
+    <%--<div class="modal-dialog">--%>
+    <%--<div class="modal-content">--%>
+    <%--<div class="modal-header">--%>
+    <%--<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>--%>
+    <%--<h4 class="modal-title">Warning Title</h4>--%>
+    <%--</div>--%>
+    <%--<div class="modal-body">--%>
+    <%--<p>Here settings can be configured...</p>--%>
+    <%--</div>--%>
+    <%--<div class="modal-footer">--%>
+    <%--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>--%>
+    <%--<button type="button" class="btn btn-primary">Save changes</button>--%>
+    <%--</div>--%>
+    <%--</div><!-- /.modal-content -->--%>
+    <%--</div><!-- /.modal-dialog -->--%>
+    <%--</div><!-- /.modal -->--%>
+
+    <div class="clearfix"></div>
+
+
+    <!-- start: JavaScript-->
+    <!--[if !IE]>-->
+
+    <script src="assets/js/jquery-2.1.1.min.js"></script>
+
+    <!--<![endif]-->
+    <!--[if IE]>
+
+    <!--<script src="assets/js/jquery-1.11.1.min.js"></script>-->
+
+    <![endif]-->
+
+    <!--[if !IE]>-->
+
+    <script type="text/javascript">
+        window.jQuery || document.write("<script src='assets/js/jquery-2.1.1.min.js'>"+"<"+"/script>");
+    </script>
+
+    <!--<![endif]-->
+
+    <!--[if IE]>
+
+    <script type="text/javascript">
+        window.jQuery || document.write("<script src='assets/js/jquery-1.11.1.min.js'>"+"<"+"/script>");
+    </script>
+    <![endif]-->
+    <script src="assets/js/jquery-migrate-1.2.1.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="js/messenger.js"></script>
+
+
+    <!-- page scripts -->
+    <%--<script src="assets/plugins/jquery-ui/js/jquery-ui-1.10.4.min.js"></script>--%>
+    <%--<script src="assets/plugins/touchpunch/jquery.ui.touch-punch.min.js"></script>--%>
+    <%--<script src="assets/plugins/moment/moment.min.js"></script>--%>
+    <%--<script src="assets/plugins/fullcalendar/js/fullcalendar.min.js"></script>--%>
+    <%--<!--[if lte IE 8]>--%>
+    <%--<script language="javascript" type="text/javascript" src="assets/plugins/excanvas/excanvas.min.js"></script>--%>
+    <%--<![endif]-->--%>
+    <%--<script src="assets/plugins/flot/jquery.flot.min.js"></script>--%>
+    <%--<script src="assets/plugins/flot/jquery.flot.pie.min.js"></script>--%>
+    <%--<script src="assets/plugins/flot/jquery.flot.stack.min.js"></script>--%>
+    <%--<script src="assets/plugins/flot/jquery.flot.resize.min.js"></script>--%>
+    <%--<script src="assets/plugins/flot/jquery.flot.time.min.js"></script>--%>
+    <%--<script src="assets/plugins/flot/jquery.flot.spline.min.js"></script>--%>
+    <%--<script src="assets/plugins/xcharts/js/xcharts.min.js"></script>--%>
+    <%--<script src="assets/plugins/autosize/jquery.autosize.min.js"></script>--%>
+    <%--<script src="assets/plugins/placeholder/jquery.placeholder.min.js"></script>--%>
+    <%--<script src="assets/plugins/datatables/js/jquery.dataTables.min.js"></script>--%>
+    <%--<script src="assets/plugins/datatables/js/dataTables.bootstrap.min.js"></script>--%>
+    <%--<script src="assets/plugins/raphael/raphael.min.js"></script>--%>
+    <%--<script src="assets/plugins/morris/js/morris.min.js"></script>--%>
+    <%--<script src="assets/plugins/jvectormap/js/jquery-jvectormap-1.2.2.min.js"></script>--%>
+    <%--<script src="assets/plugins/jvectormap/js/jquery-jvectormap-world-mill-en.js"></script>--%>
+    <%--<script src="assets/plugins/jvectormap/js/gdp-data.js"></script>--%>
+    <%--<script src="assets/plugins/gauge/gauge.min.js"></script>--%>
+
+
+    <!-- theme scripts -->
+    <script src="assets/js/SmoothScroll.js"></script>
+    <script src="assets/js/jquery.mmenu.min.js"></script>
+    <script src="assets/js/core.min.js"></script>
+    <%--<script src="assets/plugins/d3/d3.min.js"></script>--%>
+
+    <!-- inline scripts related to this page -->
+    <script src="assets/js/pages/index.js"></script>
+
+    <!-- end: JavaScript-->
+</div>
 </body>
 </html>
