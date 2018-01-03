@@ -149,7 +149,7 @@
 <!-- end: Header -->
 <script>
     var error =${errortype}
-    if(error == "1"){
+    if(error === "1"){
         alert("请登录");
         window.location.href = 'login.jsp';
     }

@@ -185,7 +185,7 @@
                         <tr class="" id="${allcourse.courseid}">
                             <td>${allcourse.courseid}</td>
                             <td>${allcourse.coursename}</td>
-                            <td style="color: red" onclick="removeCourse('${allcourse.courseid}')">删除</td>
+                            <td style="color: red;cursor: pointer" onclick="removeCourse('${allcourse.courseid}')">删除</td>
                         </tr>
                     </c:forEach>
                     </tbody>
@@ -193,9 +193,34 @@
                 <%--${alluser}--%>
 
             </div>
-
+            <input type="text" placeholder="课程名" id="coursename">
+            <input type="submit" value="添加课程" class="btn btn-success" onclick="addcourse()">
         </div>
+        <script>
 
+            function addcourse() {
+                // alert(document.getElementById("coursename").value);
+                if(document.getElementById("coursename").value === ""){
+                    new TipBox({type:'error',str:'请输入课程名成功!',hasBtn:true});
+                    return;
+                }
+                param = "/add?name="+document.getElementById("coursename").value;
+                $.ajax({
+                    url:param,
+                    type:"get",
+                    dataType:"text",
+                    contentType: 'application/x-www-form-urlencoded; charset=UTF-8',//防止乱码
+                    success:function(data){
+                        if(data === "error"){
+                            new TipBox({type:'error',str:'课程名已存在!',hasBtn:true});
+                        }
+                        else {
+                            new TipBox({type:'success',str:'添加成功!',hasBtn:true});
+                        }
+                    }
+                });
+            }
+        </script>
 
         <%--<script>--%>
         <%--function updateuser() {--%>

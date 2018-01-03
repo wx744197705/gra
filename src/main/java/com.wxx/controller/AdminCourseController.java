@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.PrintWriter;
 import java.util.List;
 
 /**
@@ -33,5 +35,15 @@ public class AdminCourseController {
     @ResponseBody
     public void removeCourse(@RequestParam("courseid") String id){
         adminCourseService.removeCourse(id);
+    }
+    @RequestMapping(value = "add")
+    @ResponseBody
+    public String addCourse(HttpServletRequest request,
+                            @RequestParam(value = "name") String name){
+        if (adminCourseService.checkCourseName(name).size() != 0){
+            return "error";
+        }
+        adminCourseService.addCourse(name);
+        return "success";
     }
 }

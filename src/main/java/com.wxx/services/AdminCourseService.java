@@ -22,4 +22,10 @@ public class AdminCourseService {
     public void removeCourse(String id){
         adminCourseInfo.removeCourse(id);
     }
+    public List<Course> checkCourseName(String name){
+        return adminCourseInfo.checkCourseName(name);
+    }
+    public void addCourse(String name){
+        adminCourseInfo.addCourse(name);
+    }
 }

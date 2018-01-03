@@ -13,4 +13,10 @@
     <delete id="removeCourse" parameterType="String">
         DELETE FROM tb_course WHERE courseid = #{courseid}
     </delete>
+    <select id="checkCourseName" parameterType="String" resultMap="course">
+        SELECT * FROM tb_course WHERE coursename = #{courseName}
+    </select>
+    <insert id="addCourse" parameterType="String">
+        INSERT INTO tb_course (coursename) VALUES (#{courseName})
+    </insert>
 </mapper>
