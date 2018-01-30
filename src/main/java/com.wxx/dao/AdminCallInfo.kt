@@ -2,10 +2,13 @@ package com.wxx.dao
 
 import com.wxx.model.*
 import org.apache.ibatis.annotations.Param
+import org.apache.ibatis.annotations.Select
+
 /**
  * Created by wxx on 2017/11/3.
  */
 interface AdminCallInfo {
+    @Select("SELECT * FROM tb_workcheck LEFT JOIN tb_roster ON tb_workcheck.stuid = tb_roster.stuid ORDER BY calldate DESC")
     fun queryAllCall(): List<WorkCheck> //查询所有点名记录
     fun removeCall(id: String) //管理员移除点名记录
     fun queryAllTeacher(): List<User> //查询所有教师信息

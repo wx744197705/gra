@@ -31,9 +31,9 @@
     <select id="queryAllCourse" resultMap="queryAllCourse">
         SELECT * FROM tb_course
     </select>
-    <select id="queryAllCall" resultMap="queryAllCall">
-        SELECT * FROM tb_workcheck LEFT JOIN tb_roster ON tb_workcheck.stuid = tb_roster.stuid ORDER BY calldate DESC
-    </select><!--查询所有-->
+    <!--<select id="queryAllCall" resultMap="queryAllCall">-->
+        <!--SELECT * FROM tb_workcheck LEFT JOIN tb_roster ON tb_workcheck.stuid = tb_roster.stuid ORDER BY calldate DESC-->
+    <!--</select>&lt;!&ndash;查询所有&ndash;&gt;-->
     <delete id="removeCall" parameterType="String">
         DELETE FROM tb_workcheck WHERE id = #{id}
     </delete>
