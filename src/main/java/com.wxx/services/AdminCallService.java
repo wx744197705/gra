@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * Created by wxx on 2017/11/4.
@@ -59,7 +60,7 @@ public class AdminCallService {
      * */
     public void filters(String teacher, String classes, String kind, String begindate, String enddate,
                          Model model, HttpServletRequest request){
-        if (BooleanSessionExist.booleanSession(request)){
+        if (!BooleanSessionExist.booleanSession(request)){
             model.addAttribute("errortypes","1");
             return;
         }
