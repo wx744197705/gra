@@ -54,7 +54,13 @@
         DELETE FROM tb_user WHERE username = #{username}
     </delete><!--删除用户-->
     <update id="updateUserByAdmin" parameterType="User">
-        UPDATE tb_USER SET password = #{password},name = #{name},
+        UPDATE tb_USER SET
+        <if test="password != null and password != ''">
+            password = #{password},
+        </if>
+        <if test="name != null and name != ''">
+            name = #{name},
+        </if>
         <choose>
             <when test="status == '管理员'">
                 status ='2'

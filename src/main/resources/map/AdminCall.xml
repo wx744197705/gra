@@ -59,10 +59,10 @@
                 AND stukind = #{kind}
             </if>
             <if test="begindate != ''.toString()">
-                AND calldate &gt;= #{begindate}
+                AND DATE_FORMAT(calldate,'%Y-%m-%d')  &gt;= #{begindate}
             </if>
             <if test="enddate != ''.toString()">
-                AND calldate &lt;= #{enddate}
+                AND DATE_FORMAT(calldate,'%Y-%m-%d') &lt;= #{enddate}
             </if>
     </select><!--按条件筛选-->
 

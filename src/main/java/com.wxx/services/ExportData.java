@@ -3,6 +3,7 @@ package com.wxx.services;
 import com.wxx.model.Schedules;
 import com.wxx.model.WorkCheck;
 import org.apache.poi.hssf.usermodel.*;
+import org.springframework.util.CollectionUtils;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
@@ -17,7 +18,7 @@ public class ExportData {
     public String exportHis(HttpServletRequest request, HttpServletResponse response)throws Exception{
         HttpSession session = request.getSession();
         Object list =  session.getAttribute("history");
-        if (list == null) {
+        if (CollectionUtils.isEmpty((List)list)) {
             return "call.jsp";
         }
         HSSFWorkbook wb = new HSSFWorkbook();

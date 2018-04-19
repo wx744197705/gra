@@ -59,9 +59,9 @@ public class AdminUserService {
      * @return 更新成功则返回true
      * */
     public boolean updateUser(String username,String password,String name,String status){
-        if("".equals(password) || "".equals(name)){
-            return false;
-        }
+//        if("".equals(password) || "".equals(name)){
+//            return false;
+//        }
         User user = new User();
         user.setUsername(username);
         user.setPassword(password);
