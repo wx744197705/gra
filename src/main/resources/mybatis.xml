@@ -6,27 +6,27 @@
     <settings>
         <setting name="logImpl" value="STDOUT_LOGGING" />
     </settings>
-    <typeAliases>
-        <typeAlias alias="User" type="com.wxx.model.User"/>
-        <typeAlias alias="Leave" type="com.wxx.model.Leave"/>
-        <typeAlias alias="Roster" type="com.wxx.model.Roster" />
-        <typeAlias alias="Schedules" type="com.wxx.model.Schedules" />
-        <typeAlias alias="WorkCheck" type="com.wxx.model.WorkCheck" />
-        <typeAlias alias="CallCount" type="com.wxx.model.CallCount" />
-        <typeAlias alias="Course" type="com.wxx.model.Course" />
-        <typeAlias alias="Center" type="com.wxx.model.Center" />
-        <typeAlias alias="PublicMsg" type="com.wxx.model.PublicMsg" />
-    </typeAliases>
-    <mappers>
-        <mapper resource="map/Login.xml"/>
-        <mapper resource="map/Leave.xml"/>
-        <mapper resource="map/Call.xml" />
-        <mapper resource="map/Schedule.xml" />
-        <mapper resource="map/AdminLeave.xml" />
-        <mapper resource="map/AdminCall.xml" />
-        <mapper resource="map/AdminSchedule.xml" />
-        <mapper resource="map/Center.xml" />
-        <mapper resource="map/AdminIndex.xml" />
-        <mapper resource="map/AdminCourse.xml" />
-    </mappers>
+    <!--<typeAliases>-->
+        <!--<typeAlias alias="User" type="com.wxx.model.User"/>-->
+        <!--<typeAlias alias="Leave" type="com.wxx.model.Leave"/>-->
+        <!--<typeAlias alias="Roster" type="com.wxx.model.Roster" />-->
+        <!--<typeAlias alias="Schedules" type="com.wxx.model.Schedules" />-->
+        <!--<typeAlias alias="WorkCheck" type="com.wxx.model.WorkCheck" />-->
+        <!--<typeAlias alias="CallCount" type="com.wxx.model.CallCount" />-->
+        <!--<typeAlias alias="Course" type="com.wxx.model.Course" />-->
+        <!--<typeAlias alias="Center" type="com.wxx.model.Center" />-->
+        <!--<typeAlias alias="PublicMsg" type="com.wxx.model.PublicMsg" />-->
+    <!--</typeAliases>-->
+    <!--<mappers>-->
+        <!--<mapper resource="map/Login.xml"/>-->
+        <!--<mapper resource="map/Leave.xml"/>-->
+        <!--<mapper resource="map/Call.xml" />-->
+        <!--<mapper resource="map/Schedule.xml" />-->
+        <!--<mapper resource="map/AdminLeave.xml" />-->
+        <!--<mapper resource="map/AdminCall.xml" />-->
+        <!--<mapper resource="map/AdminSchedule.xml" />-->
+        <!--<mapper resource="map/Center.xml" />-->
+        <!--<mapper resource="map/AdminIndex.xml" />-->
+        <!--<mapper resource="map/AdminCourse.xml" />-->
+    <!--</mappers>-->
 </configuration>
